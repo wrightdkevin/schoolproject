@@ -3,6 +3,8 @@ package foo;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -42,10 +44,28 @@ public class SchoolServlet extends HttpServlet {
 			Connection conn = DriverManager
 					.getConnection("jdbc:mysql://localhost/test?"
 							+ "user=root&password=root");
-			if( conn == null)
+			if (conn == null) {
 				pw.println("Did not get a connection... you need to investigate");
-			else
-				pw.println("success you got a db connection");
+				return;
+			}
+
+			pw.println("success you got a db connection");
+			String sqlQuery = "select studentid, name from students where studentid = ?";
+			PreparedStatement ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, studentId);
+			ResultSet rs = ps.executeQuery();
+			
+			while( rs.next()){
+				String stId = rs.getString(1);
+				String name = rs.getString(2);
+				pw.println("Student id:" + stId + " name:" + name);
+				
+			}
+			
+			
+			
+			
+			
 			
 
 		} catch (ClassNotFoundException cnfd) {
