@@ -62,6 +62,8 @@ public class SchoolServlet extends HttpServlet {
 				sqlQuery += " = ?";
 			else if ( relation.equals("Greater Than"))
 				sqlQuery += " > ?";
+			else
+				sqlQuery += " < ?";
 					
 			
 			PreparedStatement ps = conn.prepareStatement(sqlQuery);
