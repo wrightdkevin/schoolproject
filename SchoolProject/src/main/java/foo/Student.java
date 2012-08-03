@@ -23,6 +23,8 @@ public final class Student {
 	}
 	
 	
-	
+	public String toString(){
+		return name;
+	}
 
 }
