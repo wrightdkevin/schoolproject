@@ -22,8 +22,5 @@
 </table>
 
 
-
-Final results need to go here
-do you see this
 </body>
 </html>
