@@ -7,10 +7,9 @@
 		
 	<select
 			name="relation">
-			<option>Volvo</option>
-			<option>Saab</option>
-			<option>Mercedes</option>
-			<option>Audi</option>
+			<option>Equals</option>
+			<option>Less Than</option>
+			<option>Greater Than</option>
 		</select>
 
 <input type="submit" value="Process Student Info" />
