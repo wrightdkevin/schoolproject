@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,13 +39,13 @@ public class SchoolServlet extends HttpServlet {
 		List<Student> studentList = new ArrayList<Student>();
 
 		java.io.PrintWriter pw = response.getWriter();
-		pw.println("servlet is running ok");
+		//pw.println("servlet is running ok");
 		String studentId = request.getParameter("studentid");
-		pw.println("I have been passed student id:" + studentId);
+		//pw.println("I have been passed student id:" + studentId);
 
 		// Now get the relation
 		String relation = request.getParameter("relation");
-		pw.println("relation is:" + relation);
+		//pw.println("relation is:" + relation);
 
 		try {
 
@@ -58,7 +59,7 @@ public class SchoolServlet extends HttpServlet {
 				return;
 			}
 
-			pw.println("success you got a db connection");
+			//pw.println("success you got a db connection");
 			String sqlQuery = "select studentid, name from students where studentid";
 
 			if (relation.equals("Equals"))
@@ -75,11 +76,16 @@ public class SchoolServlet extends HttpServlet {
 			while (rs.next()) {
 				String stId = rs.getString(1);
 				String name = rs.getString(2);
-				pw.println("Student id:" + stId + " name:" + name);
+				// pw.println("Student id:" + stId + " name:" + name);
 				studentList.add( new Student(Integer.parseInt(stId), name));
 				
-
 			}
+			
+			// Bind the List of students to the request.
+			request.setAttribute("studentList", studentList);
+			RequestDispatcher rd = request.getRequestDispatcher("results.jsp");
+			rd.forward(request, response);
+			
 
 		} catch (ClassNotFoundException cnfd) {
 
