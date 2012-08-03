@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,16 +35,17 @@ public class SchoolServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
+		List<Student> studentList = new ArrayList<Student>();
+
 		java.io.PrintWriter pw = response.getWriter();
 		pw.println("servlet is running ok");
 		String studentId = request.getParameter("studentid");
 		pw.println("I have been passed student id:" + studentId);
-		
+
 		// Now get the relation
-		String relation = request.getParameter("relation"); 
-	    pw.println("relation is:" + relation);
-		
-		
+		String relation = request.getParameter("relation");
+		pw.println("relation is:" + relation);
+
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
@@ -57,31 +60,26 @@ public class SchoolServlet extends HttpServlet {
 
 			pw.println("success you got a db connection");
 			String sqlQuery = "select studentid, name from students where studentid";
-					
-			if(relation.equals("Equals"))
+
+			if (relation.equals("Equals"))
 				sqlQuery += " = ?";
-			else if ( relation.equals("Greater Than"))
+			else if (relation.equals("Greater Than"))
 				sqlQuery += " > ?";
 			else
 				sqlQuery += " < ?";
-					
-			
+
 			PreparedStatement ps = conn.prepareStatement(sqlQuery);
 			ps.setString(1, studentId);
 			ResultSet rs = ps.executeQuery();
-			
-			while( rs.next()){
+
+			while (rs.next()) {
 				String stId = rs.getString(1);
 				String name = rs.getString(2);
 				pw.println("Student id:" + stId + " name:" + name);
+				studentList.add( new Student(Integer.parseInt(stId), name));
 				
+
 			}
-			
-			
-			
-			
-			
-			
 
 		} catch (ClassNotFoundException cnfd) {
 
