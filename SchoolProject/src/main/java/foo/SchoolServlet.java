@@ -37,6 +37,12 @@ public class SchoolServlet extends HttpServlet {
 		pw.println("servlet is running ok");
 		String studentId = request.getParameter("studentid");
 		pw.println("I have been passed student id:" + studentId);
+		
+		// Now get the relation
+		String relation = request.getParameter("relation"); 
+	    pw.println("relation is:" + relation);
+		
+		
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
