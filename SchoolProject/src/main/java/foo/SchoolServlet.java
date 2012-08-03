@@ -56,7 +56,14 @@ public class SchoolServlet extends HttpServlet {
 			}
 
 			pw.println("success you got a db connection");
-			String sqlQuery = "select studentid, name from students where studentid = ?";
+			String sqlQuery = "select studentid, name from students where studentid";
+					
+			if(relation.equals("Equals"))
+				sqlQuery += " = ?";
+			else if ( relation.equals("Greater Than"))
+				sqlQuery += " > ?";
+					
+			
 			PreparedStatement ps = conn.prepareStatement(sqlQuery);
 			ps.setString(1, studentId);
 			ResultSet rs = ps.executeQuery();
