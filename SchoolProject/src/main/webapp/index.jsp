@@ -11,7 +11,7 @@
 			<option>Less Than</option>
 			<option>Greater Than</option>
 		</select>
-                <input type="submit" value="Process Student Info" />
+        <input type="submit" value="Process Student Info" />
 	</form>
 
 
