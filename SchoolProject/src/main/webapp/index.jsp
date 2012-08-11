@@ -1,6 +1,6 @@
 <html>
 <body>
-	<h2>School Project</h2>
+	<h2>School Project (Test)</h2>
 
 	<form action="SchoolServlet" method="get">
 		Student Id:<input type="text" name="studentid" /> 
